@@ -11,15 +11,15 @@ def call(Map pipelineParams) {
             string(name: 'RECIPIENT_EMAIL', defaultValue: '', description: 'Recipient email address')
         }
 
-        stages {
-            stage('Clone Repository') {
-                steps {
-                    script {
-                        git branch: "${BRANCH}", credentialsId: "${GITHUB_CREDENTIALS_ID}", url: "${GITHUB_REPO}"
+        // stages {
+        //     stage('Clone Repository') {
+        //         steps {
+        //             script {
+        //                 git branch: "${BRANCH}", credentialsId: "${GITHUB_CREDENTIALS_ID}", url: "${GITHUB_REPO}"
 
-                    }
-                }
-            }
-        }
+        //             }
+        //         }
+        //     }
+        // }
     }
 }
