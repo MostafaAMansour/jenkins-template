@@ -11,11 +11,6 @@ def call(Map pipelineParams) {
             string(name: 'RECIPIENT_EMAIL', defaultValue: '', description: 'Recipient email address')
         }
 
-        environment {
-            GIT_CREDENTIALS_ID = "${pipelineParams.GITHUB_CREDENTIALS_ID}"
-            DOCKER_CREDENTIALS_ID = "${pipelineParams.DOCKER_CREDENTIALS_ID}"
-        }
-
         stages {
             stage('Clone Repository') {
                 steps {
@@ -48,12 +43,12 @@ def call(Map pipelineParams) {
             success {
                 mail subject: "SUCCESS: Job '${env.JOB_NAME} [${env.BUILD_NUMBER}]'",
                         body: "Good news! Job '${env.JOB_NAME} [${env.BUILD_NUMBER}]' succeeded.",
-                        to: "${pipelineParams.RECIPIENT}"
+                        to: "${pipelineParams.RECIPIENT_EMAIL}"
             }
             failure {
                 mail subject: "FAILURE: Job '${env.JOB_NAME} [${env.BUILD_NUMBER}]'",
                         body: "Job '${env.JOB_NAME} [${env.BUILD_NUMBER}]' failed. Please check the logs for details.",
-                        to: "${pipelineParams.RECIPIENT}"
+                        to: "${pipelineParams.RECIPIENT_EMAIL}"
             }
             cleanup {
                 cleanWs()
