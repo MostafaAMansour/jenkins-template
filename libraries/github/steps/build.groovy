@@ -1,6 +1,6 @@
 def call(Map pipelineParams) {
-    // pipeline {
-    //     agent any
+    pipeline {
+        agent any
 
         // parameters {
         //     string(name: 'GITHUB_REPO', defaultValue: '', description: 'GitHub repository URL')
@@ -21,5 +21,5 @@ def call(Map pipelineParams) {
         //         }
         //     }
         // }
-    // }
+    }
 }
