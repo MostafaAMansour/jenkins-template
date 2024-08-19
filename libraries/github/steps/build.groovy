@@ -15,10 +15,8 @@ def call(Map pipelineParams) {
             stage('Clone Repository') {
                 steps {
                     script {
-                        checkout([$class: 'GitSCM',
-                                  branches: [[name: "${pipelineParams.BRANCH}"]],
-                                  userRemoteConfigs: [[url: "${pipelineParams.GITHUB_REPO}", credentialsId: "${pipelineParams.GITHUB_CREDENTIALS_ID}"]]
-                        ])
+                        git branch: "${BRANCH}", credentialsId: "${GITHUB_CREDENTIALS_ID}", url: "${GITHUB_REPO}"
+
                     }
                 }
             }
