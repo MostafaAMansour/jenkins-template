@@ -10,7 +10,7 @@ def call(Map pipelineParams) {
             string(name: 'DOCKER_CREDENTIALS_ID', defaultValue: '', description: 'DockerHub credentials ID')
             string(name: 'RECIPIENT_EMAIL', defaultValue: '', description: 'Recipient email address')
         }
-
+        echo "hello world"
         // stages {
         //     stage('Clone Repository') {
         //         steps {
