@@ -22,37 +22,6 @@ def call(Map pipelineParams) {
                     }
                 }
             }
-
-            stage('Push Docker Images') {
-                steps {
-                    script {
-                        // Push the built images to Docker Hub
-                        withCredentials([usernamePassword(credentialsId: "${pipelineParams.DOCKER_CREDENTIALS_ID}", usernameVariable: 'USERNAME', passwordVariable: 'PASSWORD')]) {
-                            sh """
-                            echo "${PASSWORD}" | docker login -u "${USERNAME}" --password-stdin
-                            docker compose push "${pipelineParams.DOCKER_IMAGE}"
-                            docker logout
-                            """
-                        }
-                    }
-                }
-            }
-        }
-
-        post {
-            success {
-                mail subject: "SUCCESS: Job '${env.JOB_NAME} [${env.BUILD_NUMBER}]'",
-                        body: "Good news! Job '${env.JOB_NAME} [${env.BUILD_NUMBER}]' succeeded.",
-                        to: "${pipelineParams.RECIPIENT_EMAIL}"
-            }
-            failure {
-                mail subject: "FAILURE: Job '${env.JOB_NAME} [${env.BUILD_NUMBER}]'",
-                        body: "Job '${env.JOB_NAME} [${env.BUILD_NUMBER}]' failed. Please check the logs for details.",
-                        to: "${pipelineParams.RECIPIENT_EMAIL}"
-            }
-            cleanup {
-                cleanWs()
-            }
         }
     }
 }
