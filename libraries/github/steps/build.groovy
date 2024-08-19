@@ -1,10 +1,10 @@
 def call(String GITHUB_REPO, String GITHUB_CREDENTIALS_ID, String BRANCH, String DOCKER_IMAGE, String DOCKER_CREDENTIALS_ID, String RECIPIENT_EMAIL) {
-    git branch: "\${BRANCH}", credentialsId: "\${GITHUB_CREDENTIALS}", url: "\${GITHUB_REPO}"
+    git branch: "${BRANCH}", credentialsId: "${GITHUB_CREDENTIALS_ID}", url: "${GITHUB_REPO}"
     
-    withCredentials([usernamePassword(credentialsId: "${params.DOCKER_CREDENTIALS_ID}", usernameVariable: 'USERNAME', passwordVariable: 'PASSWORD')]) {
+    withCredentials([usernamePassword(credentialsId: "${DOCKER_CREDENTIALS_ID}", usernameVariable: 'USERNAME', passwordVariable: 'PASSWORD')]) {
         sh """
         echo "${PASSWORD}" | docker login -u "${USERNAME}" --password-stdin
-        docker compose push "${params.DOCKER_IMAGE}"
+        docker compose push "${DOCKER_IMAGE}"
         docker logout
         """
     }
