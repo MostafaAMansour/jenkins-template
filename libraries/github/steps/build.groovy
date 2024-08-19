@@ -7,7 +7,7 @@ def call(String GITHUB_REPO, String GITHUB_CREDENTIALS_ID, String BRANCH, String
     //     docker compose push "${DOCKER_IMAGE}"
     //     docker logout
     //     """
-    }
+    // }
 
         // post {
         //     success {
